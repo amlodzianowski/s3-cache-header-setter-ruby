@@ -1,0 +1,42 @@
+{
+  "name": "Ruby",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      // Update 'VARIANT' to pick a Ruby version: 3, 3.1, 3.0, 2, 2.7
+      // Append -bullseye or -buster to pin to an OS version.
+      // Use -bullseye variants on local on arm64/Apple Silicon.
+      "VARIANT": "2.7",
+      // Options
+      "NODE_VERSION": "lts/*"
+    }
+  },
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "editor.formatOnSave": true,
+        "[ruby]": {
+          "editor.insertSpaces": true,
+          "editor.tabSize": 2
+        },
+        "solargraph.commandPath": "/usr/local/rvm/gems/default/bin/solargraph",
+        "solargraph.bundlerPath": "/usr/local/bin/bundle",
+        "ruby.rubocop.executePath": "/usr/local/rvm/gems/default/bin/",
+        "ruby.rubocop.onSave": true
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "rebornix.Ruby",
+        "castwide.solargraph",
+        "misogi.ruby-rubocop"
+      ]
+    }
+  },
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bundle install",
+  "remoteUser": "vscode"
+}

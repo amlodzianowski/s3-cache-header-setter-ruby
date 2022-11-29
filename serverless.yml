@@ -1,0 +1,41 @@
+---
+service: s3-cache-header-setter
+frameworkVersion: "3"
+configValidationMode: error
+deprecationNotificationMode: error
+useDotenv: true
+
+provider:
+  name: aws
+  region: ${env:AWS_REGION, "us-west-2"}
+  runtime: ruby2.7
+  environment:
+    LOG_LEVEL: INFO
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:ListBucket
+            - s3:PutObject
+            - s3:PutObjectAcl
+            - s3:GetObject
+          Resource:
+            - "arn:aws:s3:::${env:S3_BUCKET_NAME}"
+            - "arn:aws:s3:::${env:S3_BUCKET_NAME}/*"
+
+package:
+  patterns:
+    - '!./**'
+    - header_setter/**/*
+
+functions:
+  setter:
+    handler: header_setter/handler.handler
+    events:
+      - s3:
+          bucket: ${env:S3_BUCKET_NAME}
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: ${env:S3_PATH_PREFIX}
+          existing: true

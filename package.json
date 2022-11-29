@@ -1,0 +1,29 @@
+{
+  "name": "s3-cache-header-setter-ruby",
+  "version": "0.0.1",
+  "description": "Serverless S3 cache header setter",
+  "author": "Adrian Mlodzianowski",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amlodzianowski/s3-cache-header-setter-ruby"
+  },
+  "scripts": {
+    "release": "standard-version -a"
+  },
+  "keywords": [
+    "serverless",
+    "s3",
+    "cache",
+    "header",
+    "ruby",
+    "ttl",
+    "cloudfront"
+  ],
+  "dependencies": {
+    "serverless": "^3.25.0"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}
