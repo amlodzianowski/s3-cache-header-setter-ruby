@@ -1,0 +1,25 @@
+name: GitHub Actions Ruby
+run-name: ${{ github.actor }} is triggering tests and linters
+on: [push]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      AWS_DEFAULT_REGION: us-east-1
+    steps:
+    - uses: actions/checkout@v3
+    - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "2.7"
+        bundler-cache: true
+    - name: Install dependencies
+      run: |
+        bundle install
+    - name: Analysing the code with rubocop
+      run: |
+        bundle exec rubocop
+    - name: Running unit tests
+      run: |
+        bundle exec rspec
