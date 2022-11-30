@@ -6,6 +6,7 @@ group :development do
   gem 'aws-sdk-s3', '~> 1.117'
   gem 'rspec', '~> 3.12'
   gem 'rubocop', '~> 1.39'
+  gem 'rubocop-rspec', '~> 2.15'
   gem 'simplecov', '~> 0.21'
   gem 'solargraph', '~> 0.47'
 end
